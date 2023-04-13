@@ -25,7 +25,7 @@
     ],
     "children": [
         {
-            "nodeName": "Prod/",
+            "nodeName": "dev/",
             "assignment": {
                 "name": "pr-",
                 "displayName": "Prod ",
@@ -34,61 +34,10 @@
             "parameterSelector": "prod",
             "scope": {
                 "epac-dev": [
-                    "/providers/Microsoft.Management/managementGroups/epac-dev-prod"
+                    "/providers/Microsoft.Management/managementGroups/epac-dev"
                 ],
                 "tenant": [
                     "/providers/Microsoft.Management/managementGroups/Contoso-Prod"
-                ]
-            }
-        },
-        {
-            "nodeName": "Test/",
-            "assignment": {
-                "name": "tst-",
-                "displayName": "Test ",
-                "description": "Test Environment controls enforcement with "
-            },
-            "parameterSelector": "test",
-            "scope": {
-                "epac-dev": [
-                    "/providers/Microsoft.Management/managementGroups/epac-dev-test"
-                ],
-                "tenant": [
-                    "/providers/Microsoft.Management/managementGroups/Contoso-Test"
-                ]
-            }
-        },
-        {
-            "nodeName": "Dev/",
-            "assignment": {
-                "name": "dev-",
-                "displayName": "Dev ",
-                "description": "Dev Environment controls enforcement with "
-            },
-            "parameterSelector": "dev",
-            "scope": {
-                "epac-dev": [
-                    "/providers/Microsoft.Management/managementGroups/epac-dev-dev"
-                ],
-                "tenant": [
-                    "/providers/Microsoft.Management/managementGroups/Contoso-Dev"
-                ]
-            }
-        },
-        {
-            "nodeName": "Sandbox/",
-            "assignment": {
-                "name": "sbx-",
-                "displayName": "Sandbox ",
-                "description": "Sandbox Environment controls enforcement with "
-            },
-            "parameterSelector": "sandbox",
-            "scope": {
-                "epac-dev": [
-                    "/providers/Microsoft.Management/managementGroups/epac-dev-sandbox"
-                ],
-                "tenant": [
-                    "/providers/Microsoft.Management/managementGroups/Contoso-Sandbox"
                 ]
             }
         }
