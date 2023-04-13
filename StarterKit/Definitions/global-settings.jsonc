@@ -4,7 +4,7 @@
         {
             "pacSelector": "epac-dev",
             "cloud": "AzureCloud",
-            "tenantId": "77777777-8888-9999-1111-222222222222",
+            "tenantId": "d556ae42-cb2c-4748-ad23-af960d0701f0",
             "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/EPAC-Dev"
         }
     ],
