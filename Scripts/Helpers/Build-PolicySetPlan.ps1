@@ -147,6 +147,8 @@ function Build-PolicySetPlan {
                 }
                 $importedPolicySetDefinition = $deployedDefinitions.readOnly[$importPolicySetId]
                 $importedPolicyDefinitionGroups = $importedPolicySetDefinition.properties.policyDefinitionGroups
+                Write-Information "Imported PolicyDefinitionGroups from '$($importedPolicyDefinitionGroups)'."
+                Write-Information "Imported PolicyDefinitionGroups from '$($importedPolicyDefinitionGroups.count)'."
                 if ($null -ne $importedPolicyDefinitionGroups -and $importedPolicyDefinitionGroups.Count -gt 0) {
                     Write-Information "$($displayName): Importing PolicyDefinitionGroups from '$($importedPolicySetDefinition.displayName)'"
                     foreach ($importedPolicyDefinitionGroup in $importedPolicyDefinitionGroups) {
