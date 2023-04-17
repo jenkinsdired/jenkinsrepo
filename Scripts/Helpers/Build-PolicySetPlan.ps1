@@ -26,7 +26,6 @@ function Build-PolicySetPlan {
 
     # Calculate roleDefinitionIds for built-in and inherited PolicySets
     $readOnlyPolicySetDefinitions = $deployedDefinitions.readOnly 
-    Write-Information "Imported PolicyDefinitionGroups from '$($readOnlyPolicySetDefinitions.Keys)'."
     foreach ($id in $readOnlyPolicySetDefinitions.Keys) {
         $policySetProperties = Get-PolicyResourceProperties -policyResource $readOnlyPolicySetDefinitions.$id
         $roleIds = @{}
@@ -198,6 +197,8 @@ function Build-PolicySetPlan {
                 }
 139
                 $importPolicySetId = $importPolicyDefinitionGroup
+                Write-Information "Imported PolicyDefinitionGroups from '$($importPolicySetId)'."
+                Write-Information "Imported PolicyDefinitionGroups from '$($deployedDefinitions.readOnly)'."
 140
                 if ($importPolicyDefinitionGroup -notcontains "/providers/Microsoft.Authorization/policySetDefinitions/") {
 141
