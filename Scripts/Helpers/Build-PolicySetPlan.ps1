@@ -138,7 +138,7 @@ function Build-PolicySetPlan {
                 }
                 $importPolicySetId = $importPolicyDefinitionGroup
                 Write-Information "Imported PolicyDefinitionGroups from '$($importPolicySetId)'."
-                Write-Information "Imported PolicyDefinitionGroups from '$($deployedDefinitions)'."
+                Write-Information "Imported PolicyDefinitionGroups from '$($deployedDefinitions.all)'."
                 if ($importPolicyDefinitionGroup -notcontains "/providers/Microsoft.Authorization/policySetDefinitions/") {
                     $importPolicySetId = "/providers/Microsoft.Authorization/policySetDefinitions/$importPolicyDefinitionGroup"
                 }
