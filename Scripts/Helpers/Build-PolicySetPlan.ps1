@@ -143,7 +143,7 @@ function Build-PolicySetPlan {
                     $importPolicySetId = "/providers/Microsoft.Authorization/policySetDefinitions/$importPolicyDefinitionGroup"
                 }
                 if (!($deployedDefinitions.readOnly.ContainsKey($importPolicySetId))) {
-                    Write-Error "Built-in Policy Set '$importPolicyDefinitionGroup' for group name import not found." -ErrorAction Stop
+                    Write-Error "Built-in Policy Set '$importPolicyDefinitionGroup' for group name import not found."
                 }
                 $importedPolicySetDefinition = $deployedDefinitions.readOnly[$importPolicySetId]
                 $importedPolicyDefinitionGroups = $importedPolicySetDefinition.properties.policyDefinitionGroups
