@@ -25,7 +25,7 @@ function Build-PolicySetPlan {
     }
 
     # Calculate roleDefinitionIds for built-in and inherited PolicySets
-    $readOnlyPolicySetDefinitions = $deployedDefinitions.readOnly 
+    $readOnlyPolicySetDefinitions = $deployedDefinitions.readOnly
     foreach ($id in $readOnlyPolicySetDefinitions.Keys) {
         $policySetProperties = Get-PolicyResourceProperties -policyResource $readOnlyPolicySetDefinitions.$id
         $roleIds = @{}
@@ -129,149 +129,16 @@ function Build-PolicySetPlan {
 
         # Importing policyDefinitionGroups from built-in PolicySets?
         if ($null -ne $importPolicyDefinitionGroups) {
-106
-            -policyRoleIds $policyRoleIds
-107
-        $policyDefinitions = $policyDefinitionsFinal.ToArray()
-108
-        if ($policyRoleIdsInSet.psbase.Count -gt 0) {
-109
-            $null = $policyRoleIds.Add($id, $policyRoleIdsInSet.Keys)
-110
-        }
-111
-​
-112
-​
-113
-        # Process policyDefinitionGroups
-114
-        $policyDefinitionGroupsHashTable = @{}
-115
-        if ($null -ne $policyDefinitionGroups) {
-116
-            # Explicitly defined policyDefinitionGroups
-117
-            $null = $policyDefinitionGroups | ForEach-Object {
-118
-                $groupName = $_.name
-119
-                if ($usedPolicyGroupDefinitions.ContainsKey($groupName)) {
-120
-                    # Covered this use of a group name
-121
-                    $usedPolicyGroupDefinitions.Remove($groupName)
-122
-                }
-123
-                if (!$policyDefinitionGroupsHashTable.ContainsKey($groupName)) {
-124
-                    # Ignore duplicates
-125
-                    $policyDefinitionGroupsHashTable.Add($groupName, $_)
-126
-                }
-127
-            }
-128
-        }
-129
-​
-130
-        # Importing policyDefinitionGroups from built-in PolicySets?
-131
-        if ($null -ne $importPolicyDefinitionGroups) {
-132
             $limitReachedPolicyDefinitionGroups = $false
-133
-​
-134
+
             # Trying to import missing policyDefinitionGroups entries
-135
             foreach ($importPolicyDefinitionGroup in $importPolicyDefinitionGroups) {
-136
                 if ($usedPolicyGroupDefinitions.psbase.Count -eq 0 -or $limitReachedPolicyDefinitionGroups) {
-137
                     break
-138
                 }
-139
                 $importPolicySetId = $importPolicyDefinitionGroup
                 Write-Information "Imported PolicyDefinitionGroups from '$($importPolicySetId)'."
                 Write-Information "Imported PolicyDefinitionGroups from '$($deployedDefinitions.readOnly)'."
-140
-                if ($importPolicyDefinitionGroup -notcontains "/providers/Microsoft.Authorization/policySetDefinitions/") {
-141
-                    $importPolicySetId = "/providers/Microsoft.Authorization/policySetDefinitions/$importPolicyDefinitionGroup"
-142
-                }
-143
-                if (!($deployedDefinitions.readOnly.ContainsKey($importPolicySetId))) {
-144
-                    Write-Error "Built-in Policy Set '$importPolicyDefinitionGroup' for group name import not found." -ErrorAction Stop
-145
-                }
-146
-                $importedPolicySetDefinition = $deployedDefinitions.readOnly[$importPolicySetId]
-147
-                $importedPolicyDefinitionGroups = $importedPolicySetDefinition.properties.policyDefinitionGroups
-148
-                if ($null -ne $importedPolicyDefinitionGroups -and $importedPolicyDefinitionGroups.Count -gt 0) {
-149
-                    # Write-Information "$($displayName): Importing PolicyDefinitionGroups from '$($importedPolicySetDefinition.displayName)'"
-150
-                    foreach ($importedPolicyDefinitionGroup in $importedPolicyDefinitionGroups) {
-151
-                        $groupName = $importedPolicyDefinitionGroup.name
-152
-                        if ($usedPolicyGroupDefinitions.ContainsKey($groupName)) {
-153
-                            $usedPolicyGroupDefinitions.Remove($groupName)
-154
-                            $policyDefinitionGroupsHashTable.Add($groupName, $importedPolicyDefinitionGroup)
-155
-                            if ($policyDefinitionGroupsHashTable.psbase.Count -ge 1000) {
-156
-                                $limitReachedPolicyDefinitionGroups = $true
-157
-                                if ($usedPolicyGroupDefinitions.psbase.Count -gt 0) {
-158
-                                    Write-Warning "$($displayName): Too many PolicyDefinitionGroups (1000+) - ignore remaining imports."
-159
-                                }
-160
-                                break
-161
-                            }
-162
-                        }
-163
-                    }
-164
-                    # Write-Information "$($displayName): Imported $($policyDefinitionGroupsHashTable.psbase.psbase.Count) PolicyDefinitionGroups from '$($importedPolicySetDefinition.displayName)'."
-165
-                }
-166
-                else {
-167
-                    Write-Error "$($displayName): Policy Set $($importedPolicySet.displayName) does not contain PolicyDefinitionGroups to import." -ErrorAction Stop
-168
-                }
-169
-            }
-170
-        }
-171
-        $policyDefinitionGroupsFinal = $null
-
-            $limitReachedPolicyDefinitionGroups = $false
-
-            # Trying to import missing policyDefinitionGroups entries
-            foreach ($importPolicyDefinitionGroup in $importPolicyDefinitionGroups) {
-                if ($usedPolicyGroupDefinitions.psbase.Count -eq 0 -or $limitReachedPolicyDefinitionGroups) {
-                    break
-                }
-                $importPolicySetId = $importPolicyDefinitionGroup
                 if ($importPolicyDefinitionGroup -notcontains "/providers/Microsoft.Authorization/policySetDefinitions/") {
                     $importPolicySetId = "/providers/Microsoft.Authorization/policySetDefinitions/$importPolicyDefinitionGroup"
                 }
