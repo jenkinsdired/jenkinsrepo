@@ -26,6 +26,7 @@ function Build-PolicySetPlan {
 
     # Calculate roleDefinitionIds for built-in and inherited PolicySets
     $readOnlyPolicySetDefinitions = $deployedDefinitions.readOnly
+    Write-Host " is $readOnlyPolicySetDefinitions"
     foreach ($id in $readOnlyPolicySetDefinitions.Keys) {
         $policySetProperties = Get-PolicyResourceProperties -policyResource $readOnlyPolicySetDefinitions.$id
         $roleIds = @{}
