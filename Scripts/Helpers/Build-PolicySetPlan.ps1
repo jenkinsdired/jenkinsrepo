@@ -133,6 +133,7 @@ function Build-PolicySetPlan {
 
             # Trying to import missing policyDefinitionGroups entries
             foreach ($importPolicyDefinitionGroup in $importPolicyDefinitionGroups) {
+                Write-Information "Imported PolicyDefinitionGroups from '$($importPolicyDefinitionGroup)'."
                 if ($usedPolicyGroupDefinitions.psbase.Count -eq 0 -or $limitReachedPolicyDefinitionGroups) {
                     break
                 }
